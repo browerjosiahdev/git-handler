@@ -19,12 +19,13 @@ import Git from 'git-handler';
  *
  * Called to clone a repository.
  *
- * @param SSH (cannot be HTTPS) link to the git repository to clone.
+ * @param SSH (if private and you have an ssh key on your) or HTTPS (if public)
+ * link to the git repository to clone.
  * @param Path to where on your machine you would like to clone the repository.
  * @param (optional) array of flags to use with the clone command.
  * @param callback method to call when done cloning the repository, or if an error is thrown.
 **/
-Git.clone('git@github.com:user/repo.git', '/path/to/clone/to', ['-l', '-s'], (err) => {
+Git.clone('https://github.com/user/repo.git', '/path/to/clone/to', ['-l', '-s'], (err) => {
   if (err) {
     console.warn(`Error cloning repository - ${err}`);
   }

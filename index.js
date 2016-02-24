@@ -19,11 +19,6 @@ module.exports = {
    * @param callback - Function to callback when the process has finished.
   **/
   clone: function (repoUrl, clonePath, flags, callback) {
-    if (repoUrl.indexOf('https://') > -1) {
-      console.warn('Need to use SSH for cloning repositories, but https link was given');
-      return;
-    }
-
     if (typeof flags == 'function') {
       callback = flags;
       flags = [];
