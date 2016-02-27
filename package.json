@@ -1,6 +1,6 @@
 {
   "name": "git-handler",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "NPM module for handling git repositories. Makes it easy to add, checkout, branch, clone, commit, pull and push.",
   "main": "index.js",
   "scripts": {},

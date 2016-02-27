@@ -1,0 +1,100 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.3.6
+3 info using node@v5.0.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/josiahbrower/Documents/dev/npm/git-handler',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/josiahbrower/.npm/cache/git-handler/2.0.0/package.tgz not in flight; packing
+9 info lifecycle git-handler@2.0.0~prepublish: git-handler@2.0.0
+10 silly lifecycle git-handler@2.0.0~prepublish: no script for prepublish, continuing
+11 verbose tar pack [ '/Users/josiahbrower/.npm/cache/git-handler/2.0.0/package.tgz',
+11 verbose tar pack   '/Users/josiahbrower/Documents/dev/npm/git-handler' ]
+12 verbose tarball /Users/josiahbrower/.npm/cache/git-handler/2.0.0/package.tgz
+13 verbose folder /Users/josiahbrower/Documents/dev/npm/git-handler
+14 verbose addLocalTarball adding from inside cache /Users/josiahbrower/.npm/cache/git-handler/2.0.0/package.tgz
+15 silly cache afterAdd git-handler@2.0.0
+16 verbose afterAdd /Users/josiahbrower/.npm/cache/git-handler/2.0.0/package/package.json not in flight; writing
+17 verbose afterAdd /Users/josiahbrower/.npm/cache/git-handler/2.0.0/package/package.json written
+18 silly publish { name: 'git-handler',
+18 silly publish   version: '2.0.0',
+18 silly publish   description: 'NPM module for handling git repositories. Makes it easy to add, checkout, branch, clone, commit, pull and push.',
+18 silly publish   main: 'index.js',
+18 silly publish   scripts: {},
+18 silly publish   keywords:
+18 silly publish    [ 'npm',
+18 silly publish      'git',
+18 silly publish      'github',
+18 silly publish      'clone',
+18 silly publish      'push',
+18 silly publish      'pull',
+18 silly publish      'add',
+18 silly publish      'branch',
+18 silly publish      'checkout',
+18 silly publish      'commit',
+18 silly publish      'handle' ],
+18 silly publish   author: { name: 'unibrowdev', url: 'Josiah Brower' },
+18 silly publish   license: 'ISC',
+18 silly publish   readme: '#git-handler\n\nI created `git-handler` mostly because I am using [webpack](https://webpack.github.io/) to bundle an\nelectron application, and I needed some way to pull down a template structure that is being hosted on\ngithub. I tried a lot of the other git modules available, and though they are good they weren\'t compatible\nwith `webpack`. Hence, the only (that I know of) git module that works with `webpack`.\n\n##Usage\n\nSome new features have been added for version 2 including the ability to do `git add`, `git checkout`, `git clone`,\n`git commit`, `git pull` and `git push`. Again, if you have any ideas or issues please post them to the git repository\nlocated [here](https://github.com/browerjosiahdev/git-handler).\n\n```javascript\nimport Git from \'git-handler\'; // If using ES6 import statement.\nconst Git = require(\'git-handler\'); // If using ES Vanilla.\n\nconst RepoUrl = \'https://github.com/user/repo.git\';\nconst LocalUrl = \'/path/to/local/repository/\';\n\n/**\n * @method add\n *\n * Called to add changed items to the local repository so they are ready to be staged.\n *\n * @param Path to the local git repository.\n * @param Callback method for when the process completes.\n**/\nGit.add(LocalUrl, function (details) {\n  if (details.err) {\n    console.error(details.err);\n    return;\n  }\n  console.log(details.stdout);\n  console.log(details.stderr);\n});\n\n/**\n * @method checkout\n *\n * Called to checkout a new or existing branch.\n *\n * @param Path to the local git repository.\n * @param Name of the existing or new branch.\n * @param True to force creation of new branch if doesn\'t exist, false to throw an error.\n * @param Callback method for when the process completes.\n**/\nGit.checkout(LocalUrl, \'new-branch\', true, function (details) {\n  if (details.err) {\n    console.error(details.err);\n    return;\n  }\n  console.log(details.stdout);\n  console.log(details.stderr);\n});\n\n/**\n * @method clone\n *\n * Called to clone a repository.\n *\n * @param HTTPS path to the remote repository.\n * @param Path to where on your machine you would like to clone the repository.\n * @param (optional) array of flags to use with the clone command.\n * @param Callback method for when the process completes.\n**/\nGit.clone(RepoUrl, \'/path/to/clone/to\', [\'-l\', \'-s\'], function (details) {\n  if (details.err) {\n    console.error(details.err);\n    return;\n  }\n  console.log(\'YAY! The repository was cloned successfully.\');\n});\n\n/**\n * @method commit\n *\n * Called to commit unstaged changes to the local repository.\n *\n * @param Path to the local git repository.\n * @param Message to commit with.\n * @param Callback method for when the process completes.\n *\n * NOTE: Commit automatically calls the \'add\' method!\n**/\nGit.commit(LocalUrl, \'Commit message\', function (details) {\n  if (details.err) {\n    console.error(details.err);\n    return;\n  }\n  console.log(details.stdout);\n  console.log(details.stderr);\n});\n\n/**\n * @method pull\n *\n * Called to pull the latest from the remote repository.\n *\n * @param Path to the local git repository.\n * @param HTTPS path to the remote repository.\n * @param Name of the branch to pull.\n * @param Callback method for when the process completes.\n**/\nGit.pull(LocalUrl, RepoUrl, \'master\', function (details) {\n  if (details.err) {\n    console.error(details.err);\n    return;\n  }\n  console.log(details.stdout);\n  console.log(details.stderr);\n});\n\n/**\n * @method push\n *\n * Called to push the staged changes from your local repository to the remote repository.\n *\n * @param Path to the local git repository.\n * @param HTTPS path to the remote repository.\n * @param Name of the branch to push to.\n * @param Credentials object containing { password, userName }\n * @param Callback method for when the process completes.\n**/\nGit.push(LocalUrl, RepoUrl, \'master\', { password: \'*****\', userName: \'unibrowdev\' }, function (details) {\n  if (details.err) {\n    console.error(details.err);\n    return;\n  }\n  console.log(details.stdout);\n  console.log(details.stderr);\n});\n```\n',
+18 silly publish   readmeFilename: 'README.md',
+18 silly publish   gitHead: 'e41fcb12049902e80d844cee1ef0173a2d9a04ed',
+18 silly publish   _id: 'git-handler@2.0.0',
+18 silly publish   _shasum: '7dc68c909bf13d6e44c0ebe5b72892eddcdb0732',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name git-handler
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/git-handler
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /Users/josiahbrower/.npm/cache/git-handler/2.0.0/package.tgz
+26 verbose request uri https://registry.npmjs.org/git-handler
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 8:04:32 AM
+29 verbose request using bearer token for auth
+30 verbose request id 621bb57d927b1685
+31 http request PUT https://registry.npmjs.org/git-handler
+32 http 403 https://registry.npmjs.org/git-handler
+33 verbose headers { 'content-type': 'application/json',
+33 verbose headers   'cache-control': 'max-age=300',
+33 verbose headers   'content-length': '95',
+33 verbose headers   'accept-ranges': 'bytes',
+33 verbose headers   date: 'Sat, 27 Feb 2016 15:04:33 GMT',
+33 verbose headers   via: '1.1 varnish',
+33 verbose headers   connection: 'keep-alive',
+33 verbose headers   'x-served-by': 'cache-lax1432-LAX',
+33 verbose headers   'x-cache': 'MISS',
+33 verbose headers   'x-cache-hits': '0',
+33 verbose headers   'x-timer': 'S1456585472.445037,VS0,VE710' }
+34 verbose request invalidating /Users/josiahbrower/.npm/cache/registry.npmjs.org/git-handler on PUT
+35 error publish Failed PUT 403
+36 verbose stack Error: "You cannot publish over the previously published version 2.0.0." : git-handler
+36 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+36 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+36 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+36 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+36 verbose stack     at emitTwo (events.js:87:13)
+36 verbose stack     at Request.emit (events.js:172:7)
+36 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1063:14)
+36 verbose stack     at emitOne (events.js:82:20)
+36 verbose stack     at Request.emit (events.js:169:7)
+36 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+37 verbose statusCode 403
+38 verbose pkgid git-handler
+39 verbose cwd /Users/josiahbrower/Documents/dev/npm/git-handler
+40 error Darwin 14.5.0
+41 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+42 error node v5.0.0
+43 error npm  v3.3.6
+44 error code E403
+45 error "You cannot publish over the previously published version 2.0.0." : git-handler
+46 error If you need help, you may report this error at:
+46 error     <https://github.com/npm/npm/issues>
+47 verbose exit [ 1, true ]
