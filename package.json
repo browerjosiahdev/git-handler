@@ -1,17 +1,22 @@
 {
   "name": "git-handler",
   "version": "2.0.0",
-  "description": "npm module for cloning a git repository",
+  "description": "NPM module for handling git repositories. Makes it easy to add, checkout, branch, clone, commit, pull and push.",
   "main": "index.js",
-  "scripts": {
-    "test": "node ./test.js"
-  },
+  "scripts": {},
   "keywords": [
     "npm",
     "git",
     "github",
-    "clone"
+    "clone",
+    "push",
+    "pull",
+    "add",
+    "branch",
+    "checkout",
+    "commit",
+    "handle"
   ],
-  "author": "Josiah Brower",
+  "author": "unibrowdev (Josiah Brower)",
   "license": "ISC"
 }
